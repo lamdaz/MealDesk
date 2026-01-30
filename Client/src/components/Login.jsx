@@ -3,7 +3,7 @@ import { NavLink } from "react-router";
 
 const Login = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-[#EEE6CA]">
       <div className="w-full max-w-md backdrop-blur-xl bg-white/70 rounded-2xl shadow-2xl border border-white/40">
         <div className="text-center pt-8 px-8">
           <h2 className="text-3xl font-semibold text-gray-800">Welcome Back</h2>
