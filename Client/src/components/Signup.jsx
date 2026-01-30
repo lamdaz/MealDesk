@@ -38,11 +38,11 @@ const Signup = () => {
     <div className="min-h-screen flex items-center justify-center bg-[#EEE6CA] px-4">
       <div className="w-full max-w-md backdrop-blur-xl bg-white/70 rounded-2xl shadow-2xl border border-white/40">
         <div className="text-center pt-8 px-8">
-          <h2 className="text-3xl font-semibold text-gray-800">
-            Register Your Account
+          <h2 className="text-3xl font-semibold text-[#896C6C]">
+            Register MealDesk Account
           </h2>
           <p className="text-sm text-gray-500 mt-2">
-            Please fill in the details below
+            Explore Delicious Moments
           </p>
         </div>
 

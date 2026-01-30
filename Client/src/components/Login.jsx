@@ -6,10 +6,10 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center px-4 bg-[#EEE6CA]">
       <div className="w-full max-w-md backdrop-blur-xl bg-white/70 rounded-2xl shadow-2xl border border-white/40">
         <div className="text-center pt-8 px-8">
-          <h2 className="text-3xl font-semibold text-gray-800">Welcome Back</h2>
-          <p className="text-sm text-gray-500 mt-2">
-            Login to continue your journey
-          </p>
+          <h2 className="text-3xl font-bold text-[#896C6C]">
+            Your Table is Ready
+          </h2>
+          <p className="text-sm text-gray-500 mt-2">login to MealDesk.</p>
         </div>
 
         <div className="px-8 py-6">
