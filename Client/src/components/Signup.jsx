@@ -2,6 +2,7 @@ import React, { use, useContext, useState } from "react";
 import { Link } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 import Swal from "sweetalert2";
+import { updateProfile } from "firebase/auth";
 
 const Signup = () => {
   const [error, setError] = useState("");
@@ -36,6 +37,10 @@ const Signup = () => {
     }
     createUser(email, password)
       .then((res) => {
+        const user = res.user;
+        updateProfile(user, {
+          photoURL: photoURL,
+        });
         Swal.fire({
           title: "Created Account Successfully.",
           text: "Thank You For Joining Us.",
