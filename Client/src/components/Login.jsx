@@ -1,7 +1,33 @@
-import React from "react";
-import { NavLink } from "react-router";
+import React, { use } from "react";
+import { NavLink, useNavigate } from "react-router";
+import { AuthContext } from "../context/AuthContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const { signInUser } = use(AuthContext);
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    signInUser(email, password)
+      .then((res) => {
+        navigate("/");
+        Swal.fire({
+          title: "Login Successful.",
+          icon: "success",
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong! Try Again.",
+          footer: <a href="/signup"></a>,
+        });
+      });
+  };
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-[#EEE6CA]">
       <div className="w-full max-w-md backdrop-blur-xl bg-white/70 rounded-2xl shadow-2xl border border-white/40">
@@ -13,13 +39,14 @@ const Login = () => {
         </div>
 
         <div className="px-8 py-6">
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
               <label className="text-sm font-medium text-gray-600">
                 Email Address
               </label>
               <input
                 type="email"
+                name="email"
                 placeholder="Enter Your Email Address"
                 className="mt-2 w-full px-4 py-3 rounded-xl border border-gray-300 bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#EEE6CA]"
               />
@@ -30,6 +57,7 @@ const Login = () => {
                 Password
               </label>
               <input
+                name="password"
                 type="password"
                 placeholder="••••••••"
                 className="mt-2 w-full px-4 py-3 rounded-xl border border-gray-300 bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#EEE6CA]"
