@@ -123,7 +123,7 @@ const Signup = () => {
 
             <button
               type="submit"
-              className="w-full py-3 rounded-xl bg-[#EEE6CA] text-gray-800 font-semibold hover:bg-[#e2d9b8] transition duration-300 shadow-md"
+              className="w-full py-3 rounded-xl bg-[#EEE6CA] text-gray-800 font-semibold hover:bg-[#e2d9b8] transition duration-300 shadow-md cursor-pointer"
             >
               Sign Up
             </button>

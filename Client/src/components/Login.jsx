@@ -72,7 +72,7 @@ const Login = () => {
               </div>
             </div>
 
-            <button className="w-full py-3 rounded-xl bg-[#EEE6CA] text-gray-800 font-semibold hover:bg-[#e2d9b8] transition duration-300 shadow-md">
+            <button className="w-full py-3 rounded-xl bg-[#EEE6CA] text-gray-800 font-semibold hover:bg-[#e2d9b8] transition duration-300 shadow-md cursor-pointer">
               Login
             </button>
           </form>
