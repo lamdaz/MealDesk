@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
-  const { user } = use(AuthContext);
+  const { user, signOutUser } = use(AuthContext);
   const links = (
     <>
       <li>
@@ -86,7 +86,11 @@ const Navbar = () => {
               <li>
                 <a>Settings</a>
               </li>
-              <li>
+              <li
+                onClick={() => {
+                  signOutUser();
+                }}
+              >
                 <a>Logout</a>
               </li>
             </ul>

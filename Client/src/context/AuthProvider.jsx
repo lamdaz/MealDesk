@@ -4,6 +4,7 @@ import { auth } from "../firebase/firebase.init";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 
 const AuthProvider = ({ children }) => {
@@ -13,6 +14,11 @@ const AuthProvider = ({ children }) => {
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const signOutUser = () => {
+    setLoading(true);
+    return signOut(auth);
   };
 
   useEffect(() => {
@@ -25,6 +31,7 @@ const AuthProvider = ({ children }) => {
 
   const info = {
     createUser,
+    signOutUser,
     loading,
     user,
   };
