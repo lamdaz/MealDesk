@@ -69,7 +69,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#EEE6CA] px-4">
+    <div className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-md backdrop-blur-xl bg-white/70 rounded-2xl shadow-2xl border border-white/40">
         <div className="text-center pt-8 px-8">
           <h2 className="text-3xl font-semibold text-[#896C6C]">
@@ -135,7 +135,7 @@ const Signup = () => {
 
             <button
               type="submit"
-              className="w-full py-3 rounded-xl bg-[#EEE6CA] text-gray-800 font-semibold hover:bg-[#e2d9b8] transition duration-300 shadow-md cursor-pointer"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#DCE1CB] to-[#A3B18A] text-gray-800 font-semibold hover:bg-[#e2d9b8] transition duration-300 shadow-md cursor-pointer"
             >
               Sign Up
             </button>

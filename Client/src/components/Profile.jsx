@@ -1,11 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
+import Swal from "sweetalert2";
+import { updateProfile } from "firebase/auth";
 
 const Profile = () => {
-  const { user, loading } = useContext(AuthContext);
-  console.log("From Profile", user);
+  const { user, loading, refreshUser } = useContext(AuthContext);
+  const [localUser, setLocalUser] = useState(null);
 
-  if (loading) {
+  useEffect(() => {
+    if (user) setLocalUser(user);
+  }, [user]);
+
+  if (loading || !localUser) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <span className="loading loading-ring loading-xl"></span>
@@ -13,7 +19,47 @@ const Profile = () => {
     );
   }
 
-  if (!user) return null;
+  const handleEditProfile = async () => {
+    const { value: formValues } = await Swal.fire({
+      title: "Edit Profile",
+      html: `
+        <input type="text" id="swal-name" class="swal2-input" placeholder="Full Name" value="${localUser.displayName || ""}">
+        <input type="text" id="swal-photo" class="swal2-input" placeholder="Photo URL" value="${localUser.photoURL || ""}">
+      `,
+      showCancelButton: true,
+      confirmButtonText: "Update",
+      focusConfirm: false,
+      preConfirm: () => {
+        const name = document.getElementById("swal-name").value;
+        const photoURL = document.getElementById("swal-photo").value;
+        if (!name || !photoURL)
+          Swal.showValidationMessage("Please enter both name and photo URL");
+        return { name, photoURL };
+      },
+    });
+
+    if (formValues) {
+      try {
+        await updateProfile(user, {
+          displayName: formValues.name,
+          photoURL: formValues.photoURL,
+        });
+        setLocalUser({ ...localUser, ...formValues });
+        if (refreshUser) refreshUser();
+        Swal.fire({
+          icon: "success",
+          title: "Profile Updated",
+          text: "Your profile has been updated successfully.",
+        });
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Update Failed",
+          text: "Something went wrong. Please try again.",
+        });
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
@@ -22,20 +68,22 @@ const Profile = () => {
 
         <div className="flex justify-center">
           <img
-            src={user.photoURL}
+            src={localUser.photoURL}
             alt="Profile"
             className="w-28 h-28 rounded-full border-4 border-white shadow-lg object-cover"
           />
         </div>
 
         <h2 className="text-2xl font-bold text-center mt-4 text-gray-800">
-          {user.displayName}
+          {localUser.displayName}
         </h2>
 
-        <p className="text-center text-gray-600 text-sm mt-1">{user.email}</p>
+        <p className="text-center text-gray-600 text-sm mt-1">
+          {localUser.email}
+        </p>
 
         <div className="flex justify-center mt-3">
-          {user.emailVerified ? (
+          {localUser.emailVerified ? (
             <span className="px-3 py-1 text-xs rounded-full bg-green-100 text-green-600 font-medium">
               ✔ Email Verified
             </span>
@@ -52,26 +100,29 @@ const Profile = () => {
           <div className="flex justify-between">
             <span className="font-medium">User ID</span>
             <span className="text-gray-500 truncate max-w-[180px]">
-              {user.uid}
+              {localUser.uid}
             </span>
           </div>
 
           <div className="flex justify-between">
             <span className="font-medium">Account Created</span>
             <span className="text-gray-500">
-              {new Date(user.metadata.creationTime).toLocaleDateString()}
+              {new Date(localUser.metadata.creationTime).toLocaleDateString()}
             </span>
           </div>
 
           <div className="flex justify-between">
             <span className="font-medium">Last Login</span>
             <span className="text-gray-500">
-              {new Date(user.metadata.lastSignInTime).toLocaleDateString()}
+              {new Date(localUser.metadata.lastSignInTime).toLocaleDateString()}
             </span>
           </div>
         </div>
 
-        <button className="mt-6 w-full py-2 rounded-xl bg-gradient-to-r from-[#DCE1CB] to-[#A3B18A] text-gray-800 font-semibold hover:scale-[1.02] transition-transform duration-300">
+        <button
+          className="mt-6 w-full py-2 rounded-xl bg-gradient-to-r from-[#DCE1CB] to-[#A3B18A] text-gray-800 font-semibold hover:scale-[1.02] transition-transform duration-300"
+          onClick={handleEditProfile}
+        >
           Edit Profile
         </button>
       </div>

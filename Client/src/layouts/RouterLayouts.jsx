@@ -7,7 +7,7 @@ const RouterLayouts = () => {
   return (
     <div>
       <Navbar></Navbar>
-      <div className="mt-15  bg-[#EEE6CA] ">
+      <div className="pt-15 ">
         <Outlet></Outlet>
       </div>
       <Footer></Footer>

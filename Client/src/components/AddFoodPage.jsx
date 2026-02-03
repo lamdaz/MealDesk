@@ -11,10 +11,7 @@ const AddFoodPage = () => {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center px-4 py-10"
-      style={{ backgroundColor: "#EEE6CA" }}
-    >
+    <div className="min-h-screen flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-3xl bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl border border-white/30">
         <div className="p-10">
           <h2 className="text-3xl font-bold text-center text-[#7C6261] mb-2">

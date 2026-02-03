@@ -5,6 +5,7 @@ import Login from "../components/Login";
 import Signup from "../components/Signup";
 import AddFoodPage from "../components/AddFoodPage";
 import Profile from "../components/Profile";
+import Error from "../components/Error";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         Component: Profile,
+      },
+      {
+        path: "/*",
+        Component: Error,
       },
     ],
   },
