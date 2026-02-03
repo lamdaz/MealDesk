@@ -58,6 +58,13 @@ async function run() {
       res.send(result);
     });
 
+    // ----order get-----
+    app.get("/orders/:email", async (req, res) => {
+      const email = req.params.email;
+      const result = await orderCollection.find({ email }).toArray();
+      res.send(result);
+    });
+
     // -----send food to the server-----
     app.post("/addFood", async (req, res) => {
       const foodData = req.body;

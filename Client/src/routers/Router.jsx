@@ -13,6 +13,7 @@ import Gallery from "../components/Gallery";
 import MyFood from "../components/MyFood";
 import UpdateFood from "../components/UpdateFood";
 import PurchasePage from "../components/PurchasePage";
+import MyOrder from "../components/MyOrder";
 
 const router = createBrowserRouter([
   {
@@ -42,16 +43,6 @@ const router = createBrowserRouter([
       {
         path: "foods",
         Component: AllFood,
-      },
-      {
-        path: "myFoods/:email",
-        loader: async ({ params }) => {
-          const res = await axios(
-            `${import.meta.env.VITE_API_URL}/myFoods/${params.email}`,
-          );
-          return res.data;
-        },
-        Component: MyFood,
       },
       {
         path: "foods/:id",
@@ -86,6 +77,26 @@ const router = createBrowserRouter([
       {
         path: "gallery",
         Component: Gallery,
+      },
+      {
+        path: "myFoods/:email",
+        loader: async ({ params }) => {
+          const res = await axios(
+            `${import.meta.env.VITE_API_URL}/myFoods/${params.email}`,
+          );
+          return res.data;
+        },
+        Component: MyFood,
+      },
+      {
+        path: "orders/:email",
+        loader: async ({ params }) => {
+          const res = await axios(
+            `${import.meta.env.VITE_API_URL}/orders/${params.email}`,
+          );
+          return res.data;
+        },
+        Component: MyOrder,
       },
       {
         path: "/*",

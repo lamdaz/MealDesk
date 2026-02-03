@@ -57,8 +57,7 @@ const Home = () => {
                     <FoodCard food={food} />
                   </div>
                 ))
-              : // Loading/Skeleton state
-                [1, 2, 3].map((i) => (
+              : [1, 2, 3].map((i) => (
                   <div
                     key={i}
                     className="h-80 bg-stone-200/50 rounded-[2.5rem] animate-pulse"
@@ -66,9 +65,7 @@ const Home = () => {
                 ))}
           </div>
         </section>
-        {/* --- End of Top Rated --- */}
 
-        {/* Features Section */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
           <div className="bg-white p-10 rounded-[2.5rem] border border-orange-50 shadow-xl shadow-orange-100/50 group hover:-translate-y-2 transition-all duration-500">
             <div className="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center text-[#E67E22] mb-6 group-hover:bg-[#E67E22] group-hover:text-white transition-colors duration-500">
@@ -110,7 +107,6 @@ const Home = () => {
           </div>
         </section>
 
-        {/* CTA Section */}
         <section className="bg-[#5D4037] rounded-[3.5rem] p-12 md:p-20 relative overflow-hidden flex flex-col items-center text-center">
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#E67E22] rounded-full opacity-10 -mr-20 -mt-20"></div>
           <div className="absolute bottom-0 left-0 w-40 h-40 bg-white rounded-full opacity-5 -ml-10 -mb-10"></div>

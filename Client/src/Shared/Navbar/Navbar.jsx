@@ -51,7 +51,7 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="/orders" className={navLinkClass}>
+        <NavLink to={`/orders/${user?.email}`} className={navLinkClass}>
           My Orders
         </NavLink>
       </li>
