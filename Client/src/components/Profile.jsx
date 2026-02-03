@@ -51,12 +51,14 @@ const Profile = () => {
         if (refreshUser) refreshUser();
         Swal.fire({
           icon: "success",
+          confirmButtonColor: "#A3B18A",
           title: "Profile Updated",
           text: "Your profile has been updated successfully.",
         });
       } catch (error) {
         Swal.fire({
           icon: "error",
+          confirmButtonColor: "#A3B18A",
           title: "Update Failed",
           text: "Something went wrong. Please try again.",
         });
@@ -69,6 +71,7 @@ const Profile = () => {
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
+      confirmButtonColor: "#A3B18A",
       showCancelButton: true,
       customClass: {
         confirmButton:
@@ -86,6 +89,7 @@ const Profile = () => {
           Navigate("/");
           Swal.fire({
             title: "Deleted!",
+            confirmButtonColor: "#A3B18A",
             text: "Your account has been deleted.",
             icon: "success",
             customClass: {
@@ -95,6 +99,7 @@ const Profile = () => {
         } catch (error) {
           Swal.fire({
             title: "Error!",
+            confirmButtonColor: "#A3B18A",
             text: "Something went wrong. Try again.",
             icon: "error",
             customClass: {
