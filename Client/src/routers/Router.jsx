@@ -14,6 +14,7 @@ import MyFood from "../components/MyFood";
 import UpdateFood from "../components/UpdateFood";
 import PurchasePage from "../components/PurchasePage";
 import MyOrder from "../components/MyOrder";
+import PrivateRouter from "./PrivateRouter";
 
 const router = createBrowserRouter([
   {
@@ -42,7 +43,11 @@ const router = createBrowserRouter([
       },
       {
         path: "foods",
-        Component: AllFood,
+        element: (
+          <PrivateRouter>
+            <AllFood />
+          </PrivateRouter>
+        ),
       },
       {
         path: "foods/:id",
@@ -52,7 +57,11 @@ const router = createBrowserRouter([
           );
           return res.data;
         },
-        Component: FoodDetails,
+        element: (
+          <PrivateRouter>
+            <FoodDetails />
+          </PrivateRouter>
+        ),
       },
       {
         path: "update-food/:id",
@@ -62,7 +71,11 @@ const router = createBrowserRouter([
           );
           return res.data;
         },
-        Component: UpdateFood,
+        element: (
+          <PrivateRouter>
+            <UpdateFood />
+          </PrivateRouter>
+        ),
       },
       {
         path: "purchase/:id",
@@ -72,7 +85,11 @@ const router = createBrowserRouter([
           );
           return res.data;
         },
-        Component: PurchasePage,
+        element: (
+          <PrivateRouter>
+            <PurchasePage />
+          </PrivateRouter>
+        ),
       },
       {
         path: "gallery",
@@ -86,7 +103,11 @@ const router = createBrowserRouter([
           );
           return res.data;
         },
-        Component: MyFood,
+        element: (
+          <PrivateRouter>
+            <MyFood />
+          </PrivateRouter>
+        ),
       },
       {
         path: "orders/:email",
@@ -96,7 +117,11 @@ const router = createBrowserRouter([
           );
           return res.data;
         },
-        Component: MyOrder,
+        element: (
+          <PrivateRouter>
+            <MyOrder />
+          </PrivateRouter>
+        ),
       },
       {
         path: "/*",

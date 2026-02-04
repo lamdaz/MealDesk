@@ -37,24 +37,27 @@ const Navbar = () => {
           Gallery
         </NavLink>
       </li>
-      {user && (
+      {user?.emailVerified && (
         <li>
           <NavLink to={`/myFoods/${user.email}`} className={navLinkClass}>
             My Food
           </NavLink>
         </li>
       )}
-
-      <li>
-        <NavLink to="/addFood" className={navLinkClass}>
-          Add Food
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to={`/orders/${user?.email}`} className={navLinkClass}>
-          My Orders
-        </NavLink>
-      </li>
+      {user?.emailVerified && (
+        <li>
+          <NavLink to="/addFood" className={navLinkClass}>
+            Add Food
+          </NavLink>
+        </li>
+      )}
+      {user?.emailVerified && (
+        <li>
+          <NavLink to={`/orders/${user?.email}`} className={navLinkClass}>
+            My Orders
+          </NavLink>
+        </li>
+      )}
     </>
   );
 
