@@ -40,6 +40,20 @@ const PurchasePage = () => {
     const form = e.target;
     const formData = new FormData(form);
     const updatedInfo = Object.fromEntries(formData.entries());
+    const selectedQty = parseInt(updatedInfo.quantity, 10);
+
+    if (Number.isNaN(selectedQty) || selectedQty <= 0) {
+      return Swal.fire("Error", "Please enter a valid quantity.", "error");
+    }
+    if (selectedQty > quantity) {
+      return Swal.fire(
+        "Insufficient Stock",
+        "Not enough items available for this order.",
+        "warning"
+      );
+    }
+
+    updatedInfo.quantity = selectedQty;
     updatedInfo.foodId = { id: _id };
     if (isPurchase) {
       return Swal.fire({
@@ -68,7 +82,9 @@ const PurchasePage = () => {
         }
       })
       .catch((error) => {
-        Swal.fire("Error", "Purchase failed. Try again.", "error");
+        const errorMessage =
+          error.response?.data?.message || "Purchase failed. Try again.";
+        Swal.fire("Error", errorMessage, "error");
       });
   };
 

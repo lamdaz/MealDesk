@@ -81,8 +81,38 @@ async function run() {
 
     app.post("/orderData", async (req, res) => {
       const orderData = req.body;
-      const result = await orderCollection.insertOne(orderData);
-      res.send({ ...result, message: "Data Receive" });
+      const foodId = orderData?.foodId?.id;
+      const orderQty = parseInt(orderData?.quantity, 10);
+
+      if (!foodId || Number.isNaN(orderQty) || orderQty <= 0) {
+        return res.status(400).send({ message: "Invalid order request." });
+      }
+
+      try {
+        // atomically decrease stock only if enough quantity exists
+        const updateResult = await foodCollection.updateOne(
+          { _id: new ObjectId(foodId), quantity: { $gte: orderQty } },
+          { $inc: { quantity: -orderQty, purchases: orderQty } }
+        );
+
+        if (updateResult.modifiedCount === 0) {
+          return res
+            .status(400)
+            .send({ message: "Insufficient stock for this order." });
+        }
+
+        const normalizedOrder = {
+          ...orderData,
+          quantity: orderQty,
+          date: orderData.date || new Date().toISOString(),
+        };
+
+        const result = await orderCollection.insertOne(normalizedOrder);
+        res.send({ ...result, message: "Order placed and stock updated." });
+      } catch (error) {
+        console.error("Failed to place order:", error);
+        res.status(500).send({ message: "Could not place order. Try again." });
+      }
     });
 
     // -----update food-----
@@ -93,7 +123,7 @@ async function run() {
         { _id: new ObjectId(id) },
         {
           $set: data,
-        },
+        }
       );
       res.send(updateFood);
     });
@@ -115,7 +145,7 @@ async function run() {
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!",
+      "Pinged your deployment. You successfully connected to MongoDB!"
     );
   } finally {
   }
