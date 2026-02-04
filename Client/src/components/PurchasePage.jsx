@@ -1,4 +1,4 @@
-import React, { useState, use } from "react";
+import React, { useState, use, useEffect } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
@@ -21,8 +21,19 @@ const PurchasePage = () => {
   const [buyingQty, setBuyingQty] = useState(1);
   const [location, setLocation] = useState("");
   const [order, setOrder] = useState(false);
+  const [orderFood, setOrderFood] = useState([]);
 
   const { _id, foodName, price, quantity, addedBy, foodImage } = food;
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/purchase-order/${_id}`)
+      .then((res) => {
+        setOrderFood(res.data);
+      });
+  }, []);
+
+  const isPurchase = orderFood?.foodId?.id === _id;
 
   const handlePurchase = async (e) => {
     e.preventDefault();
@@ -30,6 +41,17 @@ const PurchasePage = () => {
     const formData = new FormData(form);
     const updatedInfo = Object.fromEntries(formData.entries());
     updatedInfo.foodId = { id: _id };
+    if (isPurchase) {
+      return Swal.fire({
+        title: "Oho!!!",
+        text: "You already purchase this item",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        showConfirmButton: false,
+      });
+    }
 
     axios
       .post(`${import.meta.env.VITE_API_URL}/orderData`, updatedInfo)

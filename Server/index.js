@@ -58,6 +58,13 @@ async function run() {
       res.send(result);
     });
 
+    // -----order by using id-----
+    app.get("/purchase-order/:id", async (req, res) => {
+      const { id } = req.params;
+      const result = await orderCollection.findOne({ "foodId.id": id });
+      res.send(result);
+    });
+
     // ----order get-----
     app.get("/orders/:email", async (req, res) => {
       const email = req.params.email;
@@ -95,6 +102,13 @@ async function run() {
     app.delete("/deleteFood/:id", async (req, res) => {
       const id = req.params.id;
       const result = await foodCollection.deleteOne({ _id: new ObjectId(id) });
+      res.send(result);
+    });
+
+    // -----order delete-----
+    app.delete("/delete-order/:id", async (req, res) => {
+      const id = req.params.id;
+      const result = await orderCollection.deleteOne({ _id: new ObjectId(id) });
       res.send(result);
     });
 
