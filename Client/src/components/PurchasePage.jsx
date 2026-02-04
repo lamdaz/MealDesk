@@ -64,7 +64,7 @@ const PurchasePage = () => {
             icon: "success",
             confirmButtonColor: "#E67E22",
           });
-          navigate("/foods");
+          navigate(`/orders/${user?.email}`);
         }
       })
       .catch((error) => {

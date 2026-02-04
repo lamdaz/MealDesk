@@ -10,6 +10,7 @@ import {
 } from "react-icons/io5";
 import { useNavigate } from "react-router";
 import FoodCard from "../components/FoodCard";
+import ImageCard from "../components/ImageCard";
 
 const Home = () => {
   const Navigate = useNavigate();
@@ -54,7 +55,7 @@ const Home = () => {
                     key={index}
                     onClick={() => Navigate(`/foods/${food._id}`)}
                   >
-                    <FoodCard food={food} />
+                    <ImageCard food={food}></ImageCard>
                   </div>
                 ))
               : [1, 2, 3].map((i) => (
