@@ -89,10 +89,9 @@ async function run() {
       }
 
       try {
-        // atomically decrease stock only if enough quantity exists
         const updateResult = await foodCollection.updateOne(
           { _id: new ObjectId(foodId), quantity: { $gte: orderQty } },
-          { $inc: { quantity: -orderQty, purchases: orderQty } }
+          { $inc: { quantity: -orderQty, purchases: orderQty } },
         );
 
         if (updateResult.modifiedCount === 0) {
@@ -123,7 +122,7 @@ async function run() {
         { _id: new ObjectId(id) },
         {
           $set: data,
-        }
+        },
       );
       res.send(updateFood);
     });
@@ -145,7 +144,7 @@ async function run() {
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
+      "Pinged your deployment. You successfully connected to MongoDB!",
     );
   } finally {
   }
