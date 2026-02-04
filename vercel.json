@@ -1,3 +1,5 @@
 {
-  "rootDirectory": "Client"
+  "rootDirectory": "Client",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist"
 }
